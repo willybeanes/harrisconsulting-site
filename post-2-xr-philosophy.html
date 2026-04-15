@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building the xR Philosophy Bot — Harris Consulting</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a3a5c'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-style='italic' font-weight='600' fill='%23c8973a' text-anchor='middle'>W</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0f0f; --ink-soft: #4a4a4a; --ink-muted: #8a8a8a;
+    --paper: #faf9f7; --paper-warm: #f2efe9; --rule: #e0dcd4;
+    --accent: #1a3a5c; --accent-bright: #c8973a; --accent-light: #eef2f7;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,249,247,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .nav-brand span { color: var(--accent-bright); }
+  .nav-back { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .post-hero {
+    background: linear-gradient(135deg, #2a5080 0%, #1a3a5c 100%);
+    padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .post-hero-inner { max-width: 760px; margin: 0 auto; }
+  .post-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent-bright);
+    background: rgba(200,151,58,0.15); padding: 0.3rem 0.7rem;
+    border-radius: 3px; margin-bottom: 1.25rem;
+  }
+  .post-hero h1 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; color: #fff; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .post-meta { font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+
+  .post-body { max-width: 760px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); }
+  .post-body p { margin-bottom: 1.4rem; color: var(--ink-soft); font-weight: 300; font-size: 1.02rem; }
+  .post-body h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; color: var(--ink); margin: 2.5rem 0 1rem; letter-spacing: -0.01em; line-height: 1.25; }
+  .post-body strong { color: var(--ink); font-weight: 500; }
+  .post-body hr { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
+  .post-body em { font-style: italic; }
+  .post-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-size: 0.88rem; color: var(--ink-muted); }
+  .post-footer a { color: var(--accent); text-decoration: none; }
+  .post-footer a:hover { text-decoration: underline; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--accent); text-decoration: none; margin-top: 2.5rem; }
+  .back-link:hover { text-decoration: underline; }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem clamp(1.5rem, 5vw, 4rem); margin-top: 4rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+  .footer-copy { font-size: 0.8rem; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Harris <span>Consulting</span></a>
+    <a class="nav-back" href="index.html#blog">← Back to Insights</a>
+  </div>
+</nav>
+
+<div class="post-hero">
+  <div class="post-hero-inner">
+    <div class="post-label">Baseball · Data</div>
+    <h1>Building the xR Philosophy Bot: Expected Runs, RE24, and What the Score Doesn't Tell You</h1>
+    <div class="post-meta">2025 &nbsp;·&nbsp; 10 min read</div>
+  </div>
+</div>
+
+<div class="post-body">
+
+  <p>Every MLB game ends with a final score. That score tells you who won. It tells you almost nothing about how the game was actually played.</p>
+
+  <p>Two teams can both score four runs and have played completely different games — one grinding out walks and manufacturing runs through good process, the other getting bailed out by a solo home run after stranding six baserunners. The score looks the same. The underlying quality of play is not the same.</p>
+
+  <p>That gap between what happened and what the game <em>deserved</em> to produce is what the xR Philosophy project is built around.</p>
+
+  <hr>
+
+  <h2>What Is xR?</h2>
+
+  <p>xR stands for Expected Runs — specifically, runs calculated through RE24 (Run Expectancy based on 24 base-out states).</p>
+
+  <p>The concept behind RE24 is elegantly simple. At any point in a baseball game, there are 24 possible states: eight base configurations (bases empty, runner on first, runner on second, and so on) combined with three out states (zero, one, or two outs). For each of those 24 states, we can calculate — based on decades of historical data — how many runs a team is <em>expected</em> to score before the inning ends.</p>
+
+  <p>RE24 tracks how individual plate appearances and plays change that run expectancy. A walk with the bases loaded in a two-out situation adds significant expected run value. A strikeout to lead off an inning costs less. Every event in a game shifts the run expectancy meter, and the cumulative sum of those shifts — anchored to actual run scoring — gives you xR: a picture of how many runs a team <em>earned</em> through productive play, as opposed to how many happened to cross the plate.</p>
+
+  <p>The difference between xR and actual runs scored is telling. Teams that consistently outscore their xR are often benefiting from sequencing luck — hits clustering together more than their rate would predict. Teams that underperform their xR are frequently better than their run totals suggest.</p>
+
+  <hr>
+
+  <h2>The Technical Stack</h2>
+
+  <p>The xR Philosophy project runs on three components: a data pipeline, a calculation engine, and a publishing layer.</p>
+
+  <p><strong>Data: The MLB Stats API (GUMBO).</strong> MLB's Stats API — colloquially called GUMBO — is the same data source that powers most serious baseball analytics work. It provides play-by-play data at a granular level: every pitch, every event, every base state before and after each plate appearance.</p>
+
+  <p>Working with GUMBO isn't always straightforward. The API is well-documented in some areas and opaque in others. One of the more significant debugging challenges in building xR was an off-by-one error in how out states were being read from the feed — a parsing issue that produced subtly wrong run expectancy figures until we isolated exactly where the state transition was being captured (before the play recorded, vs. after).</p>
+
+  <p>The lesson: always verify your out-state counts against known game logs before trusting your RE24 numbers. A single-out error compounds across every state transition in a game.</p>
+
+  <p><strong>Calculation: True RE24.</strong> The RE24 table we use is derived from multi-year historical MLB data — the average runs scored from each of the 24 base-out states across a large sample of games. Applying this table to live play-by-play data means calculating, for each plate appearance: the run expectancy of the state entering the play, the run expectancy of the state exiting the play, and any runs that actually scored. The delta, summed across a game, gives you xR.</p>
+
+  <p>Getting this right required careful attention to edge cases: double plays, fielder's choices, baserunner outs on the basepaths, and plays where multiple runners score. Each of these requires correctly identifying the pre- and post-play state and crediting or debiting the appropriate RE24 values.</p>
+
+  <p><strong>Publishing: GitHub Actions + Bluesky.</strong> Once the calculation layer was working, the publishing layer was the fun part. The bot runs on GitHub Actions — a free CI/CD platform that lets you schedule code to run on a cron schedule without maintaining any server infrastructure.</p>
+
+  <p>After each day's games complete, the pipeline pulls the previous day's play-by-play from GUMBO, calculates xR for every game, formats a post for each result, and publishes to Bluesky via their AT Protocol API. The post format shows the final score alongside each team's xR — giving followers an immediate read on whether the result reflected the underlying play.</p>
+
+  <p>The GitHub Actions setup means the entire pipeline runs for free, on a schedule, with no ongoing maintenance overhead. For a side project with no monetization, this is the right architecture.</p>
+
+  <hr>
+
+  <h2>What the Data Actually Shows</h2>
+
+  <p>After running the bot through a full season, a few patterns emerge consistently.</p>
+
+  <p><strong>High-offense games mask xR divergence.</strong> When both teams score a lot of runs, it's easy to assume the game was a slugfest driven by good hitting. Often, it's a game where one or both teams had significant sequencing luck — runners happened to reach base in the right order. Their xR is frequently lower than actual runs scored.</p>
+
+  <p><strong>Pitching-dominated games are more xR-accurate.</strong> Low-scoring games tend to produce xR figures closer to actual run totals. Fewer baserunners means fewer opportunities for sequencing to matter.</p>
+
+  <p><strong>The most interesting games are the divergent ones.</strong> A team that scores two runs but posts an xR of 4.8 played a significantly better game than the score suggests. Their pitcher stranded runners; their hitters hit the ball hard in tough spots. They deserved better. Surfacing that story — that 5-2 loss that wasn't really a 5-2 loss — is exactly what xR is designed to do.</p>
+
+  <hr>
+
+  <h2>Why Build This at All?</h2>
+
+  <p>Honestly, because the score isn't enough.</p>
+
+  <p>I've been a baseball fan long enough to have sat through games where my team lost and felt like they played well, and games where they won and felt uneasy about it. xR gives a vocabulary and a framework for that intuition. It turns "we played better than the score showed" from a feeling into something you can point to.</p>
+
+  <p>The project also gave me a real-world context to push through some genuinely tricky technical work: GUMBO API parsing, RE24 table construction, out-state edge cases, and GitHub Actions scheduling. Building something you actually care about makes that debugging less tedious.</p>
+
+  <p>There's also something philosophically satisfying about a bot named "xR Philosophy" posting expected run data to Bluesky at 2am. It feels appropriately earnest for a project about caring a little too much about baseball.</p>
+
+  <hr>
+
+  <h2>What's Next</h2>
+
+  <p><strong>Season-long xR tracking.</strong> Daily game posts are useful, but cumulative xR vs. actual runs over a full season tells a richer story about which teams are over- and underperforming their true quality.</p>
+
+  <p><strong>W%∆ correlation.</strong> Pairing xR data with win probability shifts — how much did each team's actions actually move their probability of winning — would add another layer of context beyond raw run production.</p>
+
+  <p><strong>Catch probability integration.</strong> I've done separate work scraping catch probability data from Baseball Savant, including reverse-engineering the hidden 0-star play columns that don't surface through the standard interface. Connecting that defensive data to the offensive xR picture would get closer to a full game quality metric.</p>
+
+  <p>If you follow baseball analytically and want to see the bot in action, it's running on Bluesky. If you're building something similar and want to talk through the RE24 implementation, I'm always happy to get into the weeds.</p>
+
+  <div class="post-footer">
+    <em>Will Harris is an independent consultant and lifelong baseball analytics enthusiast. He can be reached at <a href="mailto:will@harrisconsulting.us">will@harrisconsulting.us</a>.</em>
+  </div>
+
+  <a class="back-link" href="index.html#blog">← Back to Insights</a>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Harris Consulting Services</div>
+    <div class="footer-copy">© 2026 Will Harris · All rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>
