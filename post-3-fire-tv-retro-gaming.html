@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Turn a Fire TV Stick into a Retro Gaming Console — Harris Consulting</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a3a5c'/><text x='16' y='24' font-family='Georgia,serif' font-size='22' font-style='italic' font-weight='600' fill='%23c8973a' text-anchor='middle'>W</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0f0f; --ink-soft: #4a4a4a; --ink-muted: #8a8a8a;
+    --paper: #faf9f7; --paper-warm: #f2efe9; --rule: #e0dcd4;
+    --accent: #1a3a5c; --accent-bright: #c8973a; --accent-light: #eef2f7;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,249,247,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .nav-brand span { color: var(--accent-bright); }
+  .nav-back { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .post-hero {
+    background: linear-gradient(135deg, #2a1a5c 0%, #1a0d40 100%);
+    padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .post-hero-inner { max-width: 760px; margin: 0 auto; }
+  .post-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent-bright);
+    background: rgba(200,151,58,0.15); padding: 0.3rem 0.7rem;
+    border-radius: 3px; margin-bottom: 1.25rem;
+  }
+  .post-hero h1 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; color: #fff; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .post-meta { font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+
+  .post-body { max-width: 760px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); }
+  .post-body p { margin-bottom: 1.4rem; color: var(--ink-soft); font-weight: 300; font-size: 1.02rem; }
+  .post-body h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; color: var(--ink); margin: 2.5rem 0 1rem; letter-spacing: -0.01em; line-height: 1.25; }
+  .post-body strong { color: var(--ink); font-weight: 500; }
+  .post-body hr { border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
+  .post-body em { font-style: italic; }
+  .post-body ul, .post-body ol { margin-bottom: 1.4rem; padding-left: 1.5rem; color: var(--ink-soft); font-weight: 300; font-size: 1.02rem; }
+  .post-body li { margin-bottom: 0.4rem; }
+  .post-body pre {
+    background: var(--paper-warm); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.4rem;
+    overflow-x: auto;
+  }
+  .post-body code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.875rem; color: var(--accent);
+    background: var(--accent-light); padding: 0.1em 0.35em; border-radius: 3px;
+  }
+  .post-body pre code {
+    color: var(--ink-soft); background: none; padding: 0; border-radius: 0; font-size: 0.875rem;
+  }
+  .post-body blockquote {
+    border-left: 3px solid var(--accent-bright);
+    padding: 0.75rem 1.25rem; margin-bottom: 1.4rem;
+    background: var(--paper-warm); border-radius: 0 6px 6px 0;
+  }
+  .post-body blockquote p { margin-bottom: 0; }
+  .post-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-size: 0.88rem; color: var(--ink-muted); }
+  .post-footer a { color: var(--accent); text-decoration: none; }
+  .post-footer a:hover { text-decoration: underline; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--accent); text-decoration: none; margin-top: 2.5rem; }
+  .back-link:hover { text-decoration: underline; }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem clamp(1.5rem, 5vw, 4rem); margin-top: 4rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+  .footer-copy { font-size: 0.8rem; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Harris <span>Consulting</span></a>
+    <a class="nav-back" href="index.html#blog">← Back to Insights</a>
+  </div>
+</nav>
+
+<div class="post-hero">
+  <div class="post-hero-inner">
+    <div class="post-label">Tech &amp; Gaming</div>
+    <h1>How to Turn a Fire TV Stick into a Retro Gaming Console (Using ADB on Mac)</h1>
+    <div class="post-meta">June 2026 &nbsp;·&nbsp; 12 min read</div>
+  </div>
+</div>
+
+<div class="post-body">
+
+  <p><em>A step-by-step guide for setting up RetroArch on an older Fire TV Stick using ADB from your Mac — no remote required.</em></p>
+
+  <hr>
+
+  <h2>What You'll Need</h2>
+
+  <ul>
+    <li>An Amazon Fire TV Stick (Fire OS 7 or 8 — <strong>not</strong> a 2025/2026 Vega OS model)</li>
+    <li>A Mac with Homebrew installed</li>
+    <li>Your iPhone or Android phone (to use as a remote)</li>
+    <li>A Bluetooth controller (Xbox or PlayStation)</li>
+    <li>A monitor or TV with an HDMI port</li>
+  </ul>
+
+  <blockquote>
+    <p><strong>Note:</strong> This guide does not work on the newer Fire TV Stick 4K Select or Fire TV Stick HD (2026), which run Vega OS and do not support sideloading.</p>
+  </blockquote>
+
+  <hr>
+
+  <h2>Step 1: Check Your Fire Stick Model</h2>
+
+  <p>Plug in the Fire Stick and go to <strong>Settings → My Fire TV → About</strong>. Confirm you see <strong>Fire OS 7 or Fire OS 8</strong> in the Software Version. If you see Vega OS, stop here — sideloading is not supported.</p>
+
+  <hr>
+
+  <h2>Step 2: Set Up Your Phone as a Remote</h2>
+
+  <p>If you don't have a physical remote, download the <strong>Amazon Fire TV</strong> app on your phone (free on iOS and Android). Make sure your phone and Fire Stick are on the same WiFi network. Open the app and pair it to your Fire Stick — it will show a 4-digit code on screen to confirm.</p>
+
+  <hr>
+
+  <h2>Step 3: Enable Developer Options</h2>
+
+  <ol>
+    <li>Go to <strong>Settings → My Fire TV → About</strong></li>
+    <li>Click on your Fire TV device name <strong>7 times rapidly</strong></li>
+    <li>You'll see a message: <em>"You are now a developer"</em></li>
+    <li>Go back to <strong>My Fire TV</strong> and open the new <strong>Developer Options</strong> menu</li>
+    <li>Turn on <strong>ADB Debugging</strong></li>
+    <li>Turn on <strong>Apps from Unknown Sources</strong> (or "Install Unknown Apps")</li>
+  </ol>
+
+  <hr>
+
+  <h2>Step 4: Install ADB on Your Mac</h2>
+
+  <p>Open Terminal and run:</p>
+
+  <pre><code>brew install android-platform-tools</code></pre>
+
+  <p>If you get a permissions error first, run:</p>
+
+  <pre><code>sudo chown -R $(whoami) /usr/local/share/info /usr/local/share/man/man3 /usr/local/share/man/man5</code></pre>
+
+  <p>Then retry the install command.</p>
+
+  <hr>
+
+  <h2>Step 5: Find Your Fire Stick's IP Address</h2>
+
+  <p>On the Fire Stick go to <strong>Settings → My Fire TV → About → Network</strong> and note the IP Address (e.g. <code>192.168.1.218</code>).</p>
+
+  <hr>
+
+  <h2>Step 6: Connect ADB to Your Fire Stick</h2>
+
+  <p>In Terminal run:</p>
+
+  <pre><code>adb connect 192.168.1.218:5555</code></pre>
+
+  <p>(Replace with your actual IP address.)</p>
+
+  <p>Your Fire Stick will show an authorization popup — select <strong>Allow</strong>. If you see <code>already connected</code> or <code>connected to 192.168.1.218:5555</code> you're good to go.</p>
+
+  <p>To reconnect in a future session, just run the same command again.</p>
+
+  <hr>
+
+  <h2>Step 7: Check Your Fire Stick's Architecture</h2>
+
+  <p>Before downloading any emulator, check what processor your Fire Stick uses:</p>
+
+  <pre><code>adb shell getprop ro.product.cpu.abilist</code></pre>
+
+  <ul>
+    <li>If it returns <code>arm64-v8a</code> — you have a <strong>64-bit</strong> processor (great, more options available)</li>
+    <li>If it returns <code>armeabi-v7a</code> — you have a <strong>32-bit</strong> processor (older device, use 32-bit APKs)</li>
+  </ul>
+
+  <hr>
+
+  <h2>Step 8: Install RetroArch</h2>
+
+  <p>Download the RetroArch APK to your Mac from <a href="https://www.retroarch.com/?page=platforms">retroarch.com</a> — choose <strong>Android (32-bit)</strong> if your device returned <code>armeabi-v7a</code> above.</p>
+
+  <p>Then install it via ADB:</p>
+
+  <pre><code>adb install ~/Downloads/RetroArch*.apk</code></pre>
+
+  <p>You should see <code>Success</code> when it's done.</p>
+
+  <hr>
+
+  <h2>Step 9: Install Sideload Launcher (Optional but Recommended)</h2>
+
+  <p>Sideloaded apps don't appear on the Fire TV home screen by default. Search for <strong>Sideload Launcher</strong> in the Amazon Appstore (~$4) to give yourself easy access to RetroArch without needing Terminal every time.</p>
+
+  <hr>
+
+  <h2>Step 10: Connect a Bluetooth Controller</h2>
+
+  <p>Put your controller into pairing mode (PS5: hold <strong>PS + Create</strong> simultaneously until the light bar flashes rapidly). Then on the Fire Stick go to:</p>
+
+  <p><strong>Settings → Controllers &amp; Bluetooth Devices → Other Bluetooth Devices → Add Bluetooth Devices</strong></p>
+
+  <hr>
+
+  <h2>Step 11: Download Cores in RetroArch</h2>
+
+  <p>Open RetroArch and go to <strong>Online Updater → Core Downloader</strong>. For SNES games (recommended starting point), download:</p>
+
+  <p><strong>Nintendo - SNES / SFC (Snes9x)</strong></p>
+
+  <p>Other useful cores:</p>
+  <ul>
+    <li><strong>Nintendo - Game Boy Advance (mGBA)</strong> — GBA games</li>
+    <li><strong>Nintendo - Nintendo 64 (ParaLLEl N64)</strong> — N64 games (64-bit devices only)</li>
+  </ul>
+
+  <hr>
+
+  <h2>Step 12: Add ROM Files</h2>
+
+  <p>Once you have ROM files on your Mac, push them to the Fire Stick with:</p>
+
+  <pre><code>adb push ~/Downloads/"Game Name (USA).sfc" /sdcard/ROMs/</code></pre>
+
+  <p>To check what's already on the device:</p>
+
+  <pre><code>adb shell ls /sdcard/ROMs/</code></pre>
+
+  <p>To delete a file:</p>
+
+  <pre><code>adb shell 'rm "/sdcard/ROMs/filename.sfc"'</code></pre>
+
+  <hr>
+
+  <h2>Step 13: Play a Game</h2>
+
+  <p>In RetroArch, go to <strong>Load Content → /storage/emulated/0 → ROMs</strong>, select your game, choose the appropriate core, and hit <strong>Run</strong>.</p>
+
+  <p><strong>PS5 controller tip:</strong> The <strong>Options button</strong> acts as Start, and the <strong>Create button</strong> acts as Select for most SNES games.</p>
+
+  <hr>
+
+  <h2>Games That Work Great on 32-bit Fire Sticks</h2>
+
+  <p>All of these run on the Snes9x core:</p>
+
+  <ul>
+    <li>Kirby Super Star</li>
+    <li>Donkey Kong Country 1, 2 &amp; 3</li>
+    <li>Super Mario World</li>
+    <li>Super Mario World 2: Yoshi's Island</li>
+    <li>Teenage Mutant Ninja Turtles IV: Turtles in Time</li>
+    <li>Street Fighter II Turbo</li>
+    <li>Aladdin</li>
+    <li>The Legend of Zelda: A Link to the Past</li>
+  </ul>
+
+  <hr>
+
+  <h2>Limitations</h2>
+
+  <ul>
+    <li><strong>3DS games</strong> (like Kirby: Planet Robobot) require a 64-bit processor <strong>and</strong> a Snapdragon 835 or better. Most Fire Sticks don't qualify.</li>
+    <li><strong>N64 games</strong> are hit or miss on older 32-bit devices — they may crash depending on the title.</li>
+    <li><strong>Wii/GameCube/PS2</strong> are not realistic on any Fire Stick hardware.</li>
+  </ul>
+
+  <p>For 3DS emulation, consider installing <strong>Azahar</strong> on a Mac, or picking up a <strong>Retroid Pocket 5</strong> from Target.</p>
+
+  <div class="post-footer">
+    <em>Guide written June 2026. Tested on Fire OS 8.1.7 with a PS5 DualSense controller. Will Harris is an independent consultant and occasional weekend tinkerer. You can reach him at <a href="mailto:will@harrisconsulting.us">will@harrisconsulting.us</a>.</em>
+  </div>
+
+  <a class="back-link" href="index.html#blog">← Back to Insights</a>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Harris Consulting Services</div>
+    <div class="footer-copy">© 2026 Will Harris · All rights reserved</div>
+  </div>
+</footer>
+
+</body>
+</html>
