@@ -63,7 +63,7 @@ Then retry the install command.
 
 ## Step 5: Find Your Fire Stick's IP Address
 
-On the Fire Stick go to **Settings → My Fire TV → About → Network** and note the IP Address (e.g. `192.168.1.218`).
+On the Fire Stick go to **Settings → My Fire TV → About → Network** and note the IP Address (e.g. `192.168.X.XXX`).
 
 ---
 
@@ -72,12 +72,12 @@ On the Fire Stick go to **Settings → My Fire TV → About → Network** and no
 In Terminal run:
 
 ```bash
-adb connect 192.168.1.218:5555
+adb connect 192.168.X.XXX:5555
 ```
 
 (Replace with your actual IP address.)
 
-Your Fire Stick will show an authorization popup — select **Allow**. If you see `already connected` or `connected to 192.168.1.218:5555` you're good to go.
+Your Fire Stick will show an authorization popup — select **Allow**. If you see `already connected` or `connected to 192.168.X.XXX:5555` you're good to go.
 
 To reconnect in a future session, just run the same command again.
 
